@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <title>PrimeGuard | Primality Intelligence</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="PrimeGuard home">
+        <span class="brand-mark">P<span>G</span></span>
+        <span><strong>PrimeGuard</strong><small>PRIMALITY INTELLIGENCE</small></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <a class="nav-link active" href="#analyzer"><span class="nav-icon">◈</span> Prime analyzer</a>
+      <a class="nav-link" href="#dataset"><span class="nav-icon">▤</span> Dataset lab</a>
+      <a class="nav-link" href="#algorithm"><span class="nav-icon">⌘</span> Algorithm</a>
+      <a class="nav-link" href="#about"><span class="nav-icon">ⓘ</span> About PrimeGuard</a>
+      <div class="sidebar-bottom">
+        <div class="secure-pill"><span class="pulse-dot"></span><span><b>Local processing</b><small>Your data stays in this browser</small></span></div>
+        <small class="side-version">PRIMEGUARD WEB · v1.0</small>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">P<span>G</span></span><strong>PrimeGuard</strong></div>
+        <div class="breadcrumb">Workspace <span>/</span> <b>Prime analyzer</b></div>
+        <div class="top-status"><span class="status-dot"></span> SYSTEM READY</div>
+      </header>
+
+      <section class="hero" id="analyzer">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> PROBABILISTIC NUMBER THEORY</div>
+          <h1>Know your number.<br><em>Verify its primality.</em></h1>
+          <p>Test very large integers with the Miller–Rabin primality test. Follow the computation as it happens, inspect witnesses, and analyze a complete dataset.</p>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="core-number">N<span>→</span>P?</div>
+          <span class="orbit-point point-a"></span><span class="orbit-point point-b"></span><span class="orbit-point point-c"></span>
+          <div class="hero-chip">BIGINT ENGINE <b>ON</b></div>
+        </div>
+      </section>
+
+      <section class="metrics-grid" aria-label="Session metrics">
+        <article class="metric-card"><span class="metric-icon blue">◈</span><div><small>TESTS COMPLETED</small><strong id="metricTests">0</strong><span class="metric-foot">This session</span></div></article>
+        <article class="metric-card"><span class="metric-icon green">✓</span><div><small>PRIME RESULTS</small><strong id="metricPrimes">0</strong><span class="metric-foot">Verified probable primes</span></div></article>
+        <article class="metric-card"><span class="metric-icon amber">↯</span><div><small>COMPOSITES FOUND</small><strong id="metricComposites">0</strong><span class="metric-foot">Non-prime numbers</span></div></article>
+        <article class="metric-card"><span class="metric-icon violet">◷</span><div><small>LAST RUNTIME</small><strong><span id="metricTime">—</span><small class="unit"> ms</small></strong><span class="metric-foot">Algorithm execution</span></div></article>
+      </section>
+
+      <div class="workspace-grid">
+        <section class="panel input-panel">
+          <div class="panel-heading"><div><div class="section-kicker">01 / INPUT</div><h2>Number analyzer</h2></div><span class="live-badge"><span class="pulse-dot"></span> LIVE ENGINE</span></div>
+          <label for="numberInput">Integer to test</label>
+          <div class="number-input-wrap"><span class="input-prefix">N</span><input id="numberInput" type="text" inputmode="numeric" spellcheck="false" value="1000000007" placeholder="Enter an integer, e.g. 1000000007"><button id="clearInput" class="clear-btn" type="button" title="Clear input">×</button></div>
+          <div class="input-hint">Accepts integers far beyond JavaScript's safe-number limit. Do not enter decimals.</div>
+          <div class="examples-row"><span>TRY AN EXAMPLE</span><button class="example-chip" data-number="97">97</button><button class="example-chip" data-number="561">561</button><button class="example-chip" data-number="1000000007">1,000,000,007</button><button class="example-chip" data-number="170141183460469231731687303715884105727">2¹²⁷ − 1</button></div>
+          <div class="settings-grid">
+            <div><label for="roundsInput">Miller–Rabin rounds (k)</label><div class="stepper"><button id="roundMinus" type="button" aria-label="Decrease rounds">−</button><input id="roundsInput" type="number" min="1" max="50" value="8"><button id="roundPlus" type="button" aria-label="Increase rounds">+</button></div><small>More rounds increase confidence.</small></div>
+            <div><label for="modeSelect">Test mode</label><select id="modeSelect"><option value="random">Random bases (probabilistic)</option><option value="deterministic">Fixed bases (repeatable demo)</option></select><small>Uses BigInt modular arithmetic.</small></div>
+          </div>
+          <button id="analyzeBtn" class="primary-btn" type="button"><span>Run primality test</span><span class="btn-arrow">↗</span></button>
+          <div class="run-note"><span class="status-dot"></span> Computation runs locally in your browser</div>
+        </section>
+
+        <section class="panel result-panel">
+          <div class="panel-heading"><div><div class="section-kicker">02 / RESULT</div><h2>Analysis report</h2></div><span class="report-id" id="reportId">PG—0000</span></div>
+          <div class="result-empty" id="resultEmpty"><div class="empty-symbol">N<span>?</span></div><h3>Awaiting a number</h3><p>Run a test to see the primality result, confidence bound, and witness details.</p></div>
+          <div class="result-content hidden" id="resultContent">
+            <div class="result-status"><div class="result-symbol" id="resultSymbol">✓</div><div><div class="result-label" id="resultLabel">PROBABLE PRIME</div><h3 id="resultTitle">Number is probably prime</h3><p id="resultSubtitle">Passed all selected rounds.</p></div></div>
+            <div class="result-number-label">TESTED INTEGER</div><div class="result-number" id="resultNumber"></div>
+            <div class="result-stats"><div><small>EXECUTION TIME</small><strong id="resultTime">— ms</strong></div><div><small>ROUNDS (K)</small><strong id="resultRounds">8</strong></div><div><small>CONFIDENCE</small><strong id="resultConfidence">99.6%</strong></div></div>
+            <div class="bound-box"><div><span>Error bound</span><b id="errorBound">≤ 4⁻⁸</b></div><strong id="errorDecimal">≤ 1.526 × 10⁻⁵</strong><div class="bound-track"><span id="boundFill"></span></div><small>For an odd composite number, the probability of passing k independent random rounds is at most 4⁻ᵏ.</small></div>
+            <div class="witness-box" id="witnessBox"><div class="witness-heading"><span>WITNESS / FACTOR DETAILS</span><span id="witnessTag">NONE</span></div><p id="witnessText">No compositeness witness was needed.</p></div>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel process-panel">
+        <div class="panel-heading"><div><div class="section-kicker">03 / COMPUTATION TRACE</div><h2>Watch the computer work</h2></div><div class="trace-counter"><span class="pulse-dot"></span><span id="traceState">READY</span></div></div>
+        <div class="progress-meta"><span id="progressMessage">Start a test to see each computational stage.</span><b id="progressPercent">0%</b></div>
+        <div class="progress-track"><span id="progressFill"></span></div>
+        <div class="trace-steps">
+          <div class="trace-step" id="stepValidate"><span class="step-index">01</span><span class="step-check">○</span><div><b>Validate input</b><small>Parse integer using BigInt</small></div><span class="step-state">WAITING</span></div>
+          <div class="trace-step" id="stepDecompose"><span class="step-index">02</span><span class="step-check">○</span><div><b>Decompose n − 1</b><small>Find d and s where n − 1 = 2ˢ × d</small></div><span class="step-state">WAITING</span></div>
+          <div class="trace-step" id="stepBases"><span class="step-index">03</span><span class="step-check">○</span><div><b>Select test bases</b><small>Choose bases for each round</small></div><span class="step-state">WAITING</span></div>
+          <div class="trace-step" id="stepModular"><span class="step-index">04</span><span class="step-check">○</span><div><b>Modular exponentiation</b><small>Calculate aᵈ mod n with repeated squaring</small></div><span class="step-state">WAITING</span></div>
+          <div class="trace-step" id="stepWitness"><span class="step-index">05</span><span class="step-check">○</span><div><b>Check witnesses</b><small>Evaluate each Miller–Rabin round</small></div><span class="step-state">WAITING</span></div>
+          <div class="trace-step" id="stepComplete"><span class="step-index">06</span><span class="step-check">○</span><div><b>Build report</b><small>Calculate confidence and runtime</small></div><span class="step-state">WAITING</span></div>
+        </div>
+        <div class="trace-log-wrap"><div class="trace-log-head"><b>LIVE PROCESS LOG</b><button id="clearLog" type="button">Clear log</button></div><div class="trace-log" id="traceLog" aria-live="polite"><div class="log-line muted"><span>--:--:--</span><code>PrimeGuard engine initialized. Waiting for input.</code></div></div></div>
+      </section>
+
+      <section class="panel dataset-panel" id="dataset">
+        <div class="panel-heading"><div><div class="section-kicker">04 / BATCH ANALYSIS</div><h2>Dataset lab</h2><p class="panel-subtitle">Upload a CSV, TXT, or JSON file containing integer values, then test every row.</p></div><span class="dataset-icon">▤</span></div>
+        <div class="upload-area" id="dropZone"><div class="upload-icon">↑</div><div><b>Drop your dataset here</b><p>or <label class="browse-link" for="datasetFile">browse files</label> · CSV, TXT, JSON · max 5 MB</p><small>Recommended column names: number, n, value, integer, or prime_candidate</small></div><input id="datasetFile" type="file" accept=".csv,.txt,.json,text/csv,text/plain,application/json"></div>
+        <div class="dataset-controls"><div><label for="columnSelect">Number column</label><select id="columnSelect" disabled><option value="">Upload a dataset first</option></select></div><div><label for="batchLimit">Rows to process</label><select id="batchLimit"><option value="all">All rows</option><option value="10">First 10 rows</option><option value="50">First 50 rows</option><option value="100">First 100 rows</option></select></div><button class="secondary-btn" id="runDataset" type="button" disabled>Analyze dataset <span>↗</span></button><button class="text-btn" id="downloadSample" type="button">Get sample CSV ↓</button></div>
+        <div id="datasetNotice" class="dataset-notice">No dataset loaded. You can use the included <b>sample_numbers.csv</b> file to try the batch workflow.</div>
+        <div class="dataset-summary hidden" id="datasetSummary"><div><small>ROWS PROCESSED</small><strong id="dsProcessed">0</strong></div><div><small>PROBABLE PRIMES</small><strong id="dsPrimes">0</strong></div><div><small>COMPOSITES</small><strong id="dsComposites">0</strong></div><div><small>INVALID / SKIPPED</small><strong id="dsSkipped">0</strong></div><button id="exportResults" class="secondary-btn" type="button">Export results CSV ↓</button></div>
+        <div class="table-wrap hidden" id="datasetTableWrap"><table><thead><tr><th>#</th><th>INPUT VALUE</th><th>RESULT</th><th>ROUNDS</th><th>RUNTIME</th><th>DETAIL</th></tr></thead><tbody id="datasetTableBody"></tbody></table></div>
+      </section>
+
+      <section class="info-grid" id="algorithm">
+        <article class="panel info-card"><div class="section-kicker">THE MATH</div><h2>How Miller–Rabin works</h2><p>Miller–Rabin is a probabilistic primality test. It quickly rejects composite numbers by checking whether chosen bases behave as they should for primes.</p><div class="math-flow"><span>n − 1</span><b>=</b><span>2<sup>s</sup> × d</span><b>→</b><span class="math-accent">a<sup>d</sup> mod n</span></div><ol><li>Handle small numbers and even values.</li><li>Write n − 1 as 2ˢ × d, where d is odd.</li><li>For each base a, compute aᵈ mod n.</li><li>Square repeatedly and check for 1 or n − 1.</li><li>A failed round proves composite; passing all rounds means probable prime.</li></ol></article>
+        <article class="panel info-card" id="about"><div class="section-kicker">THE PROJECT</div><h2>About PrimeGuard</h2><p>PrimeGuard is an educational number-theory workspace built to make primality testing transparent. It combines large-integer input, configurable Miller–Rabin rounds, dataset testing, and a live computation trace in one responsive interface.</p><div class="about-points"><div><span>01</span><div><b>BigInt precision</b><small>Works with large integer strings without converting them to floating-point numbers.</small></div></div><div><span>02</span><div><b>Explainable steps</b><small>Shows algorithm stages, round outcomes, and compositeness witnesses.</small></div></div><div><span>03</span><div><b>Dataset-ready</b><small>Process candidate numbers from your own CSV, TXT, or JSON file.</small></div></div></div></article>
+        <article class="panel info-card future-card"><div class="section-kicker">ROADMAP</div><h2>Future scope</h2><p>PrimeGuard can be extended into a broader cryptography learning and number-analysis platform.</p><div class="future-list"><div><span>↗</span>Visual modular-exponentiation tree</div><div><span>↗</span>Additional primality algorithms such as AKS and trial division comparisons</div><div><span>↗</span>Large-scale batch reports and charts</div><div><span>↗</span>Optional backend API for shared team analysis</div><div><span>↗</span>Exportable audit trail for each test</div></div></article>
+      </section>
+      <footer><span>PrimeGuard <b>·</b> Built for transparent primality testing</span><span>BIGINT PRECISION <i></i> CLIENT-SIDE COMPUTATION</span></footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
